@@ -3,3 +3,8 @@ variable "aws_region" {
   type        = string
   default     = "us-east-1"
 }
+
+variable "assume_role_arn" {
+  description = "Role ARN Terraform assumes in target AWS account"
+  type        = string
+}
