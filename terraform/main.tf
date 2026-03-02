@@ -22,3 +22,16 @@ module "rds" {
   db_username = "app3admin"
   db_password = var.db_password
 }
+module "bastion" {
+  source = "./modules/bastion"
+
+  name             = "app3-dev"
+  vpc_id           = module.vpc.vpc_id
+  public_subnet_id = module.vpc.public_subnet_ids[0]
+
+  allowed_ssh_cidr = var.allowed_ssh_cidr
+  key_name         = var.key_name
+
+  db_security_group_id = module.rds.db_security_group_id
+  db_port              = module.rds.db_port
+}

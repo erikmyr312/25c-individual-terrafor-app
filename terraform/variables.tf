@@ -14,3 +14,13 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+variable "allowed_ssh_cidr" {
+  description = "Your public IP in CIDR format (x.x.x.x/32)"
+  type        = string
+}
+
+variable "key_name" {
+  description = "EC2 key pair name"
+  type        = string
+}
