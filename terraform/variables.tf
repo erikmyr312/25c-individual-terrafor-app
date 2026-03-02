@@ -8,3 +8,9 @@ variable "assume_role_arn" {
   description = "Role ARN Terraform assumes in target AWS account"
   type        = string
 }
+
+variable "db_password" {
+  description = "RDS master password"
+  type        = string
+  sensitive   = true
+}
