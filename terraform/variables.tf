@@ -24,3 +24,8 @@ variable "key_name" {
   description = "EC2 key pair name"
   type        = string
 }
+
+variable "maintenance_bucket_name" {
+  description = "Unique bucket name for the S3 maintenance website"
+  type        = string
+}

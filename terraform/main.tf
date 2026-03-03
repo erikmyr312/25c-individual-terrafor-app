@@ -35,3 +35,8 @@ module "bastion" {
   db_security_group_id = module.rds.db_security_group_id
   db_port              = module.rds.db_port
 }
+
+module "maintenance_site" {
+  source      = "./modules/s3_maintenance"
+  bucket_name = var.maintenance_bucket_name
+}
