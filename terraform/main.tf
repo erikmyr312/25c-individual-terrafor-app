@@ -40,3 +40,21 @@ module "maintenance_site" {
   source      = "./modules/s3_maintenance"
   bucket_name = var.maintenance_bucket_name
 }
+
+module "alb" {
+  source = "./modules/alb"
+
+  name              = "app3-dev"
+  vpc_id            = module.vpc.vpc_id
+  public_subnet_ids = module.vpc.public_subnet_ids
+
+  allowed_http_cidr = var.allowed_http_cidr
+
+  frontend_host = var.frontend_host
+  backend_host  = var.backend_host
+
+  frontend_port        = 80
+  backend_port         = 8080
+  frontend_health_path = "/"
+  backend_health_path  = "/"
+}
