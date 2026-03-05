@@ -44,3 +44,14 @@ variable "backend_host" {
   type        = string
   description = "Host header for backend"
 }
+
+variable "acm_domain_name" {
+  description = "Domain name for ACM certificate"
+  type        = string
+}
+
+variable "enable_https" {
+  description = "Enable HTTPS listener on ALB (requires validated ACM cert)"
+  type        = bool
+  default     = false
+}

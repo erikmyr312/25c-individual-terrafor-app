@@ -47,3 +47,16 @@ variable "backend_health_path" {
   type    = string
   default = "/"
 }
+
+variable "certificate_arn" {
+  description = "ACM certificate ARN for HTTPS listener"
+  type        = string
+  default     = null
+}
+
+variable "enable_https" {
+  description = "Enable HTTPS listener"
+  type        = bool
+  default     = false
+}
+

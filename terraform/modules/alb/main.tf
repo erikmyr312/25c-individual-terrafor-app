@@ -111,3 +111,22 @@ resource "aws_lb_listener_rule" "frontend_host_rule" {
     target_group_arn = aws_lb_target_group.frontend.arn
   }
 }
+
+resource "aws_lb_listener" "https" {
+  count = var.enable_https && var.certificate_arn != null ? 1 : 0
+
+  load_balancer_arn = aws_lb.this.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.certificate_arn
+
+  default_action {
+    type = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "OK"
+      status_code  = "200"
+    }
+  }
+}

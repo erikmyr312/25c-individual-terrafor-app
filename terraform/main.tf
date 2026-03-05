@@ -57,4 +57,16 @@ module "alb" {
   backend_port         = 8080
   frontend_health_path = "/"
   backend_health_path  = "/"
+  certificate_arn      = module.acm.certificate_arn
+  enable_https         = var.enable_https
+}
+
+module "acm" {
+  source = "./modules/acm"
+
+  domain_name = var.acm_domain_name
+
+  tags = {
+    Name = "app3-acm-cert"
+  }
 }
