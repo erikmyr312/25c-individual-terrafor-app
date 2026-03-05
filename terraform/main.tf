@@ -62,10 +62,8 @@ module "alb" {
 }
 
 module "acm" {
-  source = "./modules/acm"
-
+  source      = "./modules/acm"
   domain_name = var.acm_domain_name
-
   tags = {
     Name = "app3-acm-cert"
   }
@@ -73,32 +71,31 @@ module "acm" {
 
 module "frontend_asg" {
 
-  source = "./modules/autoscaling"
-
-  name = "frontend"
-
-  ami_id = var.frontend_ami_id
-
-  subnet_ids = module.vpc.public_subnet_ids
-
+  source            = "./modules/autoscaling"
+  name              = "frontend"
+  ami_id            = var.frontend_ami_id
+  subnet_ids        = module.vpc.public_subnet_ids
   target_group_arns = [module.alb.frontend_target_group_arn]
-
-  key_name = var.key_name
+  key_name          = var.key_name
 
 }
 
 module "backend_asg" {
 
-  source = "./modules/autoscaling"
-
-  name = "backend"
-
-  ami_id = var.backend_ami_id
-
-  subnet_ids = module.vpc.private_subnet_ids
-
+  source            = "./modules/autoscaling"
+  name              = "backend"
+  ami_id            = var.backend_ami_id
+  subnet_ids        = module.vpc.private_subnet_ids
   target_group_arns = [module.alb.backend_target_group_arn]
+  key_name          = var.key_name
 
-  key_name = var.key_name
+}
+
+module "cloudwatch" {
+
+  source         = "./modules/cloudwatch"
+  alb_arn_suffix = module.alb.alb_arn_suffix
+  rds_identifier = module.rds.db_instance_identifie
+  dashboard_name = "app-monitoring"
 
 }
