@@ -70,3 +70,35 @@ module "acm" {
     Name = "app3-acm-cert"
   }
 }
+
+module "frontend_asg" {
+
+  source = "./modules/autoscaling"
+
+  name = "frontend"
+
+  ami_id = var.frontend_ami_id
+
+  subnet_ids = module.vpc.public_subnet_ids
+
+  target_group_arns = [module.alb.frontend_target_group_arn]
+
+  key_name = var.key_name
+
+}
+
+module "backend_asg" {
+
+  source = "./modules/autoscaling"
+
+  name = "backend"
+
+  ami_id = var.backend_ami_id
+
+  subnet_ids = module.vpc.private_subnet_ids
+
+  target_group_arns = [module.alb.backend_target_group_arn]
+
+  key_name = var.key_name
+
+}

@@ -55,3 +55,11 @@ variable "enable_https" {
   type        = bool
   default     = false
 }
+
+variable "frontend_ami_id" {
+  type = string
+}
+
+variable "backend_ami_id" {
+  type = string
+}
